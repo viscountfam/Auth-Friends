@@ -6,6 +6,7 @@ export default function Friend(props) {
             <h3>Name: {props.friend.name}</h3>
             <h4>Age: {props.friend.age}</h4>
             <h5>email: {props.friend.email}</h5>
+            <button onClick={() => props.deleteFriend(props.friend.id)}>Delete Friend</button>
         </div>
     )
 }

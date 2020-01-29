@@ -5,7 +5,7 @@ export default function FriendList(props) {
         <div>
             <h1>The Gang</h1>
             {props.friends.map(friend => (
-                <Friend key={friend.id} friend={friend}/>
+                <Friend key={friend.id} friend={friend} deleteFriend={props.deleteFriend} updateHelper={props.updateHelper}/>
             ))}
         </div>
     )

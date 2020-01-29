@@ -17,19 +17,37 @@ export default function NewFriendForm(props) {
         setNewFriend({
             name: "",
             age: "",
-            height: ""
+            height: "",
+            id: ""
         })
     }
 
-    const postFriend = (friend) => {
+    const postFriend = (newFriend) => {
             axiosWithAuth()
-            .post("friends", friend)
+            .post("friends", newFriend)
             .then(res => {
                 console.log("Post successful new friend created", res)
             })
             .catch(err => {
                 console.log("The post was unsuccessful", err)
             })
+    }
+
+    const putFriend = (newFriend) => {
+        axiosWithAuth()
+        .put(`friends/${newFriend.id}`, newFriend)
+        .then( res => {
+            console.log(`The friend ${newFriend.name} has been updated with the following data ${newFriend}`, res)
+        })
+        .catch( err => {
+            console.log(`The update was unsuccessful`, err)
+        })
+    }
+    const updateSubmit = () => {
+        console.log("friend before being sent to the server for updates", newFriend)
+        putFriend(newFriend)
+        resetForm()
+        props.updateHelper()
     }
 
     const submit = () => {
@@ -62,7 +80,15 @@ export default function NewFriendForm(props) {
                 onChange={handleChange}
                 placeholder="email"
             />
+            <input
+                type="number"
+                name="id"
+                value={newFriend.id}
+                onChange={handleChange}
+                placeholder="id"
+            />
         <button onClick={() => {submit()}}>Submit new friend</button>
+        <button onClick={() => {updateSubmit()}}>Update friend</button>
         </div>
     );
 };

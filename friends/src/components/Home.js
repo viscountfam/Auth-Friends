@@ -19,12 +19,20 @@ export default function Home() {
         setupdater(!updater)
     }
 
+    const deleteFriend = (id) => {
+        axiosWithAuth()
+            .delete(`friends/${id}`)
+            .then(res => {
+                console.log(`The friend with the id ${id} has been deleted`, res)
+            })
+    }
+
     return (
         <div>
            <h1>Welcome to the Friend's page</h1> 
            <h4>Add a new friend here</h4>
            <NewFriendForm updateHelper={updateHelper}/>
-           <FriendList friends={friends}  />
+           <FriendList friends={friends} deleteFriend={deleteFriend} updateHelper={updateHelper}  />
         </div>
     )
 }
